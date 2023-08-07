@@ -1,0 +1,15 @@
+---
+message:
+  intro: "Welcome to Calculator! Enter your name:"
+  name: "Hi "
+  invalid_name: "Make sure you use a valid name."
+  first_number: "Whats the first number?"
+  second_number: "What is the second number?"
+  invalid_number: "Hmm that doesn't look like a valid number"
+  operator_prompt: "What operation would you like to perform? \n
+    1) add\n
+    2) subtract\n
+    3) multiply\n
+    4) divide"
+  invalid_operator: "Must choose 1, 2, 3, or 4"
+  repeat?: "Do you want to perform another calculation? (Y to calculate again"
