@@ -122,19 +122,43 @@ def joinor(arr, delimiter = ', ', word = 'or')
   msg.join(" ")
 end
 
+def get_turn_order
+  prompt "Please choose who goes first: Player or Computer"
+  input = gets.chomp
+  unless input.downcase.start_with?('c')
+    return "Player"
+  end
+  "Computer"
+end
+
+def place_piece!(board, current_player)
+  if current_player.downcase == 'player'
+    player_places_piece!(board)
+  else
+    computer_places_piece!(board)
+  end
+  nil
+end
+
+def alternate_player(current_player)
+  current_player.downcase == 'player' ? "Computer" : "Player"
+end
 
 player_score = 0
 computer_score = 0
 
 loop do
   board = initialize_board
+  current_player = get_turn_order
   loop do
     display_board(board)
-    player_places_piece!(board)
+    place_piece!(board, current_player)
+    current_player = alternate_player(current_player)
+    # player_places_piece!(board)
     break if someone_won?(board) || board_full?(board)
 
-    computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    # computer_places_piece!(board)
+    # break if someone_won?(board) || board_full?(board)
   end
 
   display_board(board)
