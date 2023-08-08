@@ -7,6 +7,7 @@ INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
 GAME_LIMIT = 5
+MIDDLE_SQUARE = 5
 
 # rubocop:disable Metrics/MethodLength
 def display_board(brd)
@@ -55,20 +56,20 @@ end
 def computer_places_piece!(brd)
   square = nil
 
-  # defense
-  WINNING_LINES.each do |line|
-    square = find_potential_square(line, brd, PLAYER_MARKER)
-    break if square
-  end
-
   # offense
-  if !square
     WINNING_LINES.each do |line|
       square = find_potential_square(line, brd, COMPUTER_MARKER)
       break if square
     end
-  end
 
+  # defense
+  if !square
+    WINNING_LINES.each do |line|
+      square = find_potential_square(line, brd, PLAYER_MARKER)
+      break if square
+    end
+  end
+  # square = brd[MIDDLE_SQUARE] if brd[MIDDLE_SQUARE] == INITIAL_MARKER
   square = empty_squares(brd).sample if !square
   brd[square] = COMPUTER_MARKER
 end
