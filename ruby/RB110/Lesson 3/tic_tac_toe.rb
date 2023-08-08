@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'pry-byebug'
 
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
@@ -8,12 +6,11 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
-GAME_LIMIT = 2
+GAME_LIMIT = 5
 
 # rubocop:disable Metrics/MethodLength
 def display_board(brd)
   system 'clear'
-  puts "You're a #{PLAYER_MARKER}. Computer is a #{COMPUTER_MARKER}."
   puts "You're a #{PLAYER_MARKER}. Computer is a #{COMPUTER_MARKER}."
   puts ''
   puts '     |     |'
@@ -56,9 +53,36 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
+  threat = computer_detect_threat(brd)
+  if threat
+    square = threat.join.to_i
+  else
+    square = empty_squares(brd).sample
+  end
   brd[square] = COMPUTER_MARKER
 end
+
+def computer_detect_threat(brd)
+  threats = []
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line).count(PLAYER_MARKER) == 2 &&
+       brd.values_at(*line).count(INITIAL_MARKER) == 1
+       threats << line.select { |square| brd[square] == INITIAL_MARKER }
+    end
+  end
+  threats.sample
+end
+
+# def computer_detect_threat(brd)
+#   WINNING_LINES.each do |line|
+#     if brd.values_at(*line).count(PLAYER_MARKER) == 2
+#       return line.select { |square| brd[square] != PLAYER_MARKER}
+#     else
+#       return nil
+#     end
+#   end
+# end
+
 
 def prompt(msg)
   puts "=> #{msg}"
