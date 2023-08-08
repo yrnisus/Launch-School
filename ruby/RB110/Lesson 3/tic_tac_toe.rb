@@ -53,36 +53,31 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
-  threat = computer_detect_threat(brd)
-  if threat
-    square = threat.join.to_i
-  else
-    square = empty_squares(brd).sample
+  square = nil
+
+  # defense
+  WINNING_LINES.each do |line|
+    square = find_potential_square(line, brd, PLAYER_MARKER)
+    break if square
   end
+
+  # offense
+  if !square
+    WINNING_LINES.each do |line|
+      square = find_potential_square(line, brd, COMPUTER_MARKER)
+      break if square
+    end
+  end
+
+  square = empty_squares(brd).sample if !square
   brd[square] = COMPUTER_MARKER
 end
 
-def computer_detect_threat(brd)
-  threats = []
-  WINNING_LINES.each do |line|
-    if brd.values_at(*line).count(PLAYER_MARKER) == 2 &&
-       brd.values_at(*line).count(INITIAL_MARKER) == 1
-       threats << line.select { |square| brd[square] == INITIAL_MARKER }
-    end
+def find_potential_square(line, board, marker)
+  if board.values_at(*line).count(marker) == 2
+    board.select{|k,v| line.include?(k) && v == INITIAL_MARKER}.keys.first
   end
-  threats.sample
 end
-
-# def computer_detect_threat(brd)
-#   WINNING_LINES.each do |line|
-#     if brd.values_at(*line).count(PLAYER_MARKER) == 2
-#       return line.select { |square| brd[square] != PLAYER_MARKER}
-#     else
-#       return nil
-#     end
-#   end
-# end
-
 
 def prompt(msg)
   puts "=> #{msg}"
