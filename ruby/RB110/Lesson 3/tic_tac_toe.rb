@@ -69,7 +69,11 @@ def computer_places_piece!(brd)
       break if square
     end
   end
-  # square = brd[MIDDLE_SQUARE] if brd[MIDDLE_SQUARE] == INITIAL_MARKER
+
+  if !square
+    square = MIDDLE_SQUARE
+  end
+
   square = empty_squares(brd).sample if !square
   brd[square] = COMPUTER_MARKER
 end
