@@ -67,6 +67,7 @@ def player_turn(player_hand, dealer_hand, deck)
     input = gets.chomp
     if input.downcase.start_with?('h')
       player_hand << deal_card(deck)
+      # system 'clear'
       display_player_hand(player_hand)
     else
       break
@@ -76,8 +77,6 @@ def player_turn(player_hand, dealer_hand, deck)
       prompt "Bust. You lose"
       break
     end
-    system 'clear'
-    display_hands_start(player_hand, dealer_hand)
   end
   # system 'clear'
   # dealer_turn(dealer_hand, deck)
@@ -97,10 +96,10 @@ def dealer_turn(hand, deck)
 end
 
 def determine_winner(player_hand, dealer_hand)
+  system 'clear'
   player_total = count_cards(player_hand)
   dealer_total = count_cards(dealer_hand)
   display_hands(player_hand, dealer_hand)
-
   if player_total > 21
     prompt "Dealer wins!"
     return nil
