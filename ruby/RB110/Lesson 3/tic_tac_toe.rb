@@ -8,10 +8,10 @@ PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
 GAME_LIMIT = 5
 MIDDLE_SQUARE = 5
+PLAYERS_ARRAY = ["Player", "Computer"]
 
 # rubocop:disable Metrics/MethodLength
 def display_board(brd)
-  system 'clear'
   puts "You're a #{PLAYER_MARKER}. Computer is a #{COMPUTER_MARKER}."
   puts ''
   puts '     |     |'
@@ -57,10 +57,10 @@ def computer_places_piece!(brd)
   square = nil
 
   # offense
-    WINNING_LINES.each do |line|
-      square = find_potential_square(line, brd, COMPUTER_MARKER)
-      break if square
-    end
+  WINNING_LINES.each do |line|
+    square = find_potential_square(line, brd, COMPUTER_MARKER)
+    break if square
+  end
 
   # defense
   if !square
@@ -70,13 +70,17 @@ def computer_places_piece!(brd)
     end
   end
 
-  if !square
+  # center
+  if !square && brd[MIDDLE_SQUARE] == INITIAL_MARKER
     square = MIDDLE_SQUARE
   end
 
+  # random
   square = empty_squares(brd).sample if !square
+
   brd[square] = COMPUTER_MARKER
 end
+
 
 def find_potential_square(line, board, marker)
   if board.values_at(*line).count(marker) == 2
@@ -123,12 +127,14 @@ def joinor(arr, delimiter = ', ', word = 'or')
 end
 
 def get_turn_order
-  prompt "Please choose who goes first: Player or Computer"
+  prompt "Please choose who goes first: Player, Computer or Random"
   input = gets.chomp
-  unless input.downcase.start_with?('c')
+  if input.downcase.start_with?('p')
     return "Player"
+  elsif input.downcase.start_with?('c')
+    return "Computer"
   end
-  "Computer"
+  PLAYERS_ARRAY.sample
 end
 
 def place_piece!(board, current_player)
@@ -137,7 +143,6 @@ def place_piece!(board, current_player)
   else
     computer_places_piece!(board)
   end
-  nil
 end
 
 def alternate_player(current_player)
@@ -153,12 +158,9 @@ loop do
   loop do
     display_board(board)
     place_piece!(board, current_player)
+    display_board(board)
     current_player = alternate_player(current_player)
-    # player_places_piece!(board)
     break if someone_won?(board) || board_full?(board)
-
-    # computer_places_piece!(board)
-    # break if someone_won?(board) || board_full?(board)
   end
 
   display_board(board)
