@@ -1,3 +1,5 @@
+require 'pry'
+
 =begin
 You start with a normal 52-card deck consisting of the 4 suits
 (hearts, diamonds, clubs, and spades), and 13 values (2, 3, 4, 5, 6, 7, 8, 9, 10, jack, queen, king, ace).
@@ -28,8 +30,8 @@ You start with a normal 52-card deck consisting of the 4 suits
 
 CARDS_ARRAY = (2..10).to_a + ["Jack", "Queen", "King", "Ace"]
 FACE_CARDS_VALUES = {
-  "Jack": 10, "Queen": 10,
-  "King": 10, "Ace": 11
+  "Jack"=> 10, "Queen"=> 10,
+  "King"=> 10, "Ace"=> 11
   }
 
 def initialize_deck
@@ -58,8 +60,22 @@ def prompt(msg)
 end
 
 def display_hands(player, computer)
-  prompt "Player Hand - #{player}"
+  display_player_hand(player)
   prompt "Computer Hand - #{computer.sample}"
+end
+
+def display_player_hand(hand)
+  total = 0
+  msg = hand.map do |card|
+    if card.class == String
+      total += FACE_CARDS_VALUES[card]
+    else
+      total += card
+    end
+    "[#{card}] "
+  end.join
+  prompt "Player Hand: #{msg}"
+  prompt "#{total}"
 end
 
 def player_turn(player_hand, deck)
@@ -74,7 +90,7 @@ def player_turn(player_hand, deck)
       break
     end
   end
-  player_hand
+  prompt "Your total is num"
 end
 
 
@@ -91,6 +107,6 @@ loop do
   end
   display_hands(player_hand, computer_hand)
   player_turn(player_hand, deck)
-  p player_turn
+  p player_hand
 break
 end
