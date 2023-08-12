@@ -9,9 +9,11 @@ COMPUTER_MARKER = 'O'
 GAME_LIMIT = 5
 MIDDLE_SQUARE = 5
 PLAYERS_ARRAY = ["Player", "Computer"]
+GRID_SIZE = 3
 
 # rubocop:disable Metrics/MethodLength
 def display_board(brd)
+  system 'clear'
   puts "You're a #{PLAYER_MARKER}. Computer is a #{COMPUTER_MARKER}."
   puts ''
   puts '     |     |'
