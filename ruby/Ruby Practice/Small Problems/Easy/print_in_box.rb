@@ -1,7 +1,9 @@
 LINE_LENGTH = 78
 OFFSET = 2
+TRUNCATION_LENGTH = 4
 
-def print_in_box(str)
+def print_in_box(str, trunc = false)
+
   word_arr = []
 
   if str.size > LINE_LENGTH
@@ -16,8 +18,12 @@ def print_in_box(str)
 
   p border
   p empty_line
-  word_arr.each do |line|
-    p "| #{line} |"
+  if trunc
+    p "| #{word_arr[0][0..(-TRUNCATION_LENGTH)]}... |"
+  else
+    word_arr.each do |line|
+      p "| #{line} |"
+    end
   end
   p empty_line
   p border
@@ -36,6 +42,9 @@ def format_word_wrap(str)
   word_wrap_arr
 end
 
+lorem = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+print_in_box(lorem, true)
+puts ""
 lorem = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 print_in_box(lorem)
 puts ""
