@@ -59,16 +59,21 @@ Code
 # end
 
 # # original solution
-def create_diamond(n)
+def create_diamond_fe(n)
   arr = []                # Initialize an empty array to hold the diamond pattern lines.
   num_chars = n           # Initialize the number of characters in the middle row of the diamond.
 
-  arr << "*" * num_chars  # Add the first line of the diamond pattern (all asterisks) to the array.
+  arr << "*#{' ' * (num_chars - 2)}*" # Add the first line of the diamond pattern (all asterisks) to the array.
 
   loop do
     num_chars -= 2        # Decrement the number of characters by 2 for the upper and lower rows.
-    arr.unshift("*" * num_chars)  # Prepend a line of asterisks to the array for the upper part.
-    arr.push("*" * num_chars)     # Append a line of asterisks to the array for the lower part.
+    if num_chars > 1
+      arr.unshift("*#{' ' * (num_chars - 2)}*")  # Prepend a line of asterisks to the array for the upper part.
+      arr.push("*#{' ' * (num_chars - 2)}*")     # Append a line of asterisks to the array for the lower part.
+    else
+      arr.push("*")
+      arr.unshift("*")
+    end
     break if num_chars == 1       # Break the loop when the number of characters reaches 1.
   end
 
@@ -79,9 +84,33 @@ def display_diamond(arr, n)
   arr.each { |x| puts x.center(n) }  # Center-align and print each line of the diamond pattern.
 end
 
-def diamond(n)
-  display_diamond(create_diamond(n), n)  # Call the functions to create and display the diamond.
+def diamond_fe(n)
+  display_diamond(create_diamond_fe(n), n)  # Call the functions to create and display the diamond.
 end
+
+def create_diamond(n)
+  arr = []
+  num_chars = n
+  arr << "*" * num_chars
+  loop do
+    num_chars-=2
+    arr.unshift("*" * num_chars)
+    arr.push("*" * num_chars)
+    break if num_chars == 1
+  end
+  arr
+end
+
+def display_diamond(arr, n)
+  arr.each { |x| puts x.center(n)}
+end
+
+def diamond(n)
+  display_diamond(create_diamond(n), n)
+end
+
+
+
 
 # instructor
 # def print_row(grid_size, distance_from_center)
@@ -101,5 +130,5 @@ end
 
 
 
-diamond(5)
-# diamond(9)
+diamond_fe(5)
+diamond_fe(9)
