@@ -1,0 +1,29 @@
+
+[1mFrom:[0m /home/ec2-user/environment/projects/ruby/Ruby Practice/Small Problems/Study Group/longest_substring.rb:60 Object#longest:
+
+    [1;34m56[0m: [32mdef[0m [1;34mlongest[0m(str)
+    [1;34m57[0m:   longest_substring = [31m[1;31m"[0m[31m[1;31m"[0m[31m[0m
+    [1;34m58[0m:   cur_substring = [31m[1;31m"[0m[31m[1;31m"[0m[31m[0m
+    [1;34m59[0m:   prev_char = [31m[1;31m"[0m[31m[1;31m"[0m[31m[0m
+ => [1;34m60[0m:                 binding.pry
+    [1;34m61[0m:   str.chars.each.with_index [32mdo[0m |char, index|
+    [1;34m62[0m: 
+    [1;34m63[0m:     [32mif[0m index == [1;34m0[0m
+    [1;34m64[0m:       prev_char = char
+    [1;34m65[0m:       cur_substring << char
+    [1;34m66[0m:       [32mnext[0m
+    [1;34m67[0m:     [32mend[0m
+    [1;34m68[0m: 
+    [1;34m69[0m:     [32mif[0m char >= prev_char
+    [1;34m70[0m:       cur_substring << char
+    [1;34m71[0m:     [32melse[0m
+    [1;34m72[0m:       [32mif[0m cur_substring.size > longest_substring.size
+    [1;34m73[0m:         longest_substring = cur_substring
+    [1;34m74[0m:         cur_substring = [31m[1;31m"[0m[31m[1;31m"[0m[31m[0m
+    [1;34m75[0m:       [32mend[0m
+    [1;34m76[0m:     [32mend[0m
+    [1;34m77[0m:     prev_char = char
+    [1;34m78[0m:   [32mend[0m
+    [1;34m79[0m:   p longest_substring
+    [1;34m80[0m: [32mend[0m
+
