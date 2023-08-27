@@ -25,27 +25,25 @@ If false
 
 
 def block_word?(str)
-  pairs = [["B", "O"], ["X", "K"], ["D", "Q"], ["C", "P"], ["N", "A"], ["G", "T"],
-  ["R", "E"], ["F", "S"], ["J", "W"], ["H", "U"], ["V", "I"], ["L", "Y"],
-  ["Z", "M"]]
-  used_pairs = []
+  pairs = %w(BO XK DQ CP NA GT RE FS JW HU VI LY ZM)
 
-  str.chars.each do |char|
-    pairs.each do |pair|
-      if pair.first == char.upcase || pair.last == char.upcase
-        if used_pairs.include?(pair)
-          return false
-        else
-          used_pairs << pair
-          next
-        end
-      end
-    end
+  pairs.none? do |pair|
+    p pair.count(str.upcase)
   end
-  true
 end
 
+#   BLOCKS = %w(BO XK DQ CP NA GT RE FS JW HU VI LY ZM).freeze
 
-p block_word?('BATCH') == true
-p block_word?('BUTCH') == false
-p block_word?('jest') == true
+# def block_word?(string)
+#   up_string = string.upcase
+#   BLOCKS.none? do |block|
+#     p block
+#     p up_string.count(block)
+#     up_string.count(block) >= 2
+#   end
+# end
+
+
+p block_word?('BATCHO')
+# p block_word?('BUTCH') == false
+# p block_word?('jest') == true
