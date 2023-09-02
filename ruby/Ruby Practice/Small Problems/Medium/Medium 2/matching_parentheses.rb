@@ -20,6 +20,8 @@ otherwise return true
 =end
 
 
+# single quotes doesnt work
+
 def balanced?(str)
   pairs = %w([] {} "" '').each { |pair| [pair] }
   pairs.all? do |pair|
@@ -37,12 +39,8 @@ def balanced?(str)
   end
 end
 
-p balanced?('What [is"] this?') #== true
-# p balanced?('What is) this?') == false
-# p balanced?('What (is this?') == false
-# p balanced?('((What) (is this))?') == true
+p balanced?("The parents' 'nanny' is here. (They) [are] \"very nice\"") == true
+# p balanced?("This will fail because there is a single 'quote in front of a space.") == false
 # p balanced?('((What)) (is this))?') == false
-# p balanced?('Hey!') == true
-# p balanced?(')Hey!(') == false
-# p balanced?('What ((is))) up(') == false
-# p balanced?('What ())(is() up') == false
+p balanced?("Let's {try it [all]} and return true") == true
+p balanced?("Let's {try it [all]} and re{turn false") == false
