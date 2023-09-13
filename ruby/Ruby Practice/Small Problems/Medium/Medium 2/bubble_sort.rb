@@ -21,14 +21,10 @@ def bubble_sort!(arr)
       when 0 then continue
       end
     end
-    break if !swapped
+    break if swapped == false
   end
   arr
 end
-
-
-
-
 
 # def bubble_sort!(arr)
 #   n = arr.size
@@ -50,12 +46,12 @@ end
 
 array = [5, 3]
 p bubble_sort!(array)
-array == [3, 5]
+p array == [3, 5]
 
 array = [6, 2, 7, 1, 4]
 p bubble_sort!(array)
-array == [1, 2, 4, 6, 7]
+p array == [1, 2, 4, 6, 7]
 
 array = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
 p bubble_sort!(array)
-array == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+p array == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
