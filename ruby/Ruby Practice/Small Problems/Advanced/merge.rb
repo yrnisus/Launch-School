@@ -24,7 +24,7 @@ def merge(arr1, arr2)
   end
 
   while index1 < arr1.size && index2 < arr2.size
-    if arr1[index1] <= arr2[index2] 
+    if arr1[index1] <= arr2[index2]
       res << arr1[index1]
       index1+=1
     else
