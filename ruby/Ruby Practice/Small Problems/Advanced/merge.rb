@@ -1,17 +1,20 @@
 def merge(array1, array2)
   index2 = 0
-  result = []
+  res = []
 
   array1.each do |value|
     while index2 < array2.size && array2[index2] <= value
-      result << array2[index2]
-      index2 += 1
+      res << array2[index2]
+      index2 +=1
     end
-    result << value
+    res << value
   end
-
-  result.concat(array2[index2..-1])
+    res.concat(array2[index2..])
 end
+
+
+
+
 
 def merge(arr1, arr2)
   index1, index2 = 0, 0
